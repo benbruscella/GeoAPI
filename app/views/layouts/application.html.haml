@@ -1,9 +1,50 @@
 !!! 5
 %html
   %head
-    = csrf_meta_tag
+    = stylesheet_link_tag 'compiled/screen.css'
+    = stylesheet_link_tag 'compiled/print.css'
+    /[if lt IE 8] 
+      = stylesheet_link_tag 'compiled/ie.css'
+    = stylesheet_link_tag 'compiled/application.css'
     /[if lt IE 9]
       = javascript_include_tag 'html5'
-  %body
-    = yield
     = javascript_include_tag :defaults
+    = yield :more_javascript
+    = csrf_meta_tag
+    %title
+      Trolley Rescue (#{h(yield(:title) || "Untitled")})
+    
+  %body
+    #header
+      .container
+        .span-24.last
+          #logo
+            = link_to image_tag("logo.png"), root_url, :title => "Homepage"
+          #logged-in
+          #navigation
+            =# render_navigation
+      .container
+        #notice
+          - if flash[:alert]
+            %p.flash-error
+              = flash[:alert]
+          - if flash[:notice]
+            .flash-notice
+              = flash[:notice]
+    #marketing
+      .container
+        .span-24.last
+          = yield(:marketing)
+    - m = request.request_uri.gsub('/', '').gsub('feedback', '')
+    #content{:class => m}
+      .container{:class => m}
+        .span-24.last{:class => m}
+          - if show_title?
+            %h1= h yield(:title)
+          = yield
+    #footer
+      .container
+        .span-24.last
+          &copy;
+          =link_to "TheLogicBox", "http://www.thelogicbox.com.au/", :class => "external_link"
+    =# render :partial => 'layouts/analytics'
