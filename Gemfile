@@ -13,6 +13,7 @@ gem 'rmagick'
 gem 'carrierwave'
 gem 'mime-types', "1.16", :require => "mime/types"
 gem "geokit"
+gem "geocoder"
 gem "devise"
 gem 'SystemTimer'
 gem "kaminari" 
