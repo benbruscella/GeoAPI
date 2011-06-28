@@ -1,6 +1,6 @@
 require 'bundler/capistrano'
 
-set :application, "trolleyrescue"
+set :application, "geoapi"
 set :repository,  "git@github.com:benbruscella/GeoAPI.git"
 
 task :production do
